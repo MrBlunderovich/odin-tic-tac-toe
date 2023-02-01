@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
 * {
   box-sizing: border-box;
   font-family: inherit;
@@ -13,12 +13,17 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: "VT323", monospace;
+  /* font-family: "VT323", monospace; */
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
   user-select: none;
 }
 .header {
-  font-size: 10rem;
-  color: #ffbc88;
+  font-size: 4rem;
+  /* color: #8a7aff;
+  text-shadow: 5px 5px #ffde8f; */
+  /* color: #fff; */
+  padding: 1rem;
 }
 .container {
   height: 80vmin;
@@ -38,6 +43,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20vmin;
+  font-size: 10vmin;
   color: #e771df;
+}
+.cell:active {
+  box-shadow: 0 0 0 3px #8a7aff inset;
 }

@@ -72,7 +72,6 @@ const GameBoard = (function () {
     });
 
     const spaceReset = function (event) {
-      console.log(event);
       if (event.keyCode === 32) {
         resetBoard();
       }
@@ -82,8 +81,6 @@ const GameBoard = (function () {
 
   const _fillCells = function () {
     const cellsCollection = document.querySelectorAll(".cell");
-    console.log("_fillCells");
-    console.log(_board);
     cellsCollection.forEach((cell) => {
       const cellIndex = +cell.dataset.index;
       cell.textContent = _board[cellIndex];
@@ -97,6 +94,6 @@ GameBoard.generateCells();
 
 function handleCellClick(event) {
   const cellIndex = event.target.dataset.index;
-  console.log(cellIndex);
+  console.log(`Cell ${cellIndex} has been clicked`);
   GameBoard.markCell(cellIndex, "X");
 }
