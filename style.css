@@ -1,7 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 * {
   box-sizing: border-box;
   font-family: inherit;
   font-size: 100%;
   margin: 0;
   padding: 0;
+}
+body {
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, #e771df, #ff7bba, #8a7aff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "VT323", monospace;
+}
+.header {
+  font-size: 10rem;
+  color: #ffbc88;
+}
+.container {
+  height: 80vmin;
+  max-height: 600px;
+  width: 80vmin;
+  max-width: 600px;
+  background-image: linear-gradient(to bottom, #ffde8f, #ff9798);
+  border: 10px solid #8a7aff;
+  transform: perspective(1000px) rotateX(60deg);
 }
