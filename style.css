@@ -27,4 +27,16 @@ body {
   background-image: linear-gradient(to bottom, #ffde8f, #ff9798);
   border: 10px solid #8a7aff;
   transform: perspective(1000px) rotateX(60deg);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.cell {
+  border: 1px solid #8a7aff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20vmin;
+  color: #e771df;
 }
