@@ -29,6 +29,8 @@ const GameBoard = (function () {
         console.log(_gameOver + " win on line: " + line);
         return;
       }
+
+      //TODO: check dor a draw
     }
   };
 
@@ -119,5 +121,10 @@ const PlayerFF = (playerMark, playerIdentity) => {
   };
   return { makeMove, activate, isActive };
 };
+
 const playerX = PlayerFF("X", "human");
 const playerY = PlayerFF("O", "human");
+
+const DisplayController = (function () {
+  return {};
+})();
