@@ -97,3 +97,27 @@ function handleCellClick(event) {
   console.log(`Cell ${cellIndex} has been clicked`);
   GameBoard.markCell(cellIndex, "X");
 }
+
+const PlayerFF = (playerMark, playerIdentity) => {
+  const mark = playerMark;
+  const identity = playerIdentity;
+  let active = false;
+  let hasWon = false;
+  const isActive = () => active;
+  const activate = () => {
+    console.log("activating");
+    active = true;
+    console.log("should be active: " + isActive());
+  };
+  const makeMove = function (index) {
+    if (active === false) {
+      console.log(`not player "${mark}" move`);
+      return;
+    }
+    GameBoard.markCell(index, mark);
+    active = false;
+  };
+  return { makeMove, activate, isActive };
+};
+const playerX = PlayerFF("X", "human");
+const playerY = PlayerFF("O", "human");
