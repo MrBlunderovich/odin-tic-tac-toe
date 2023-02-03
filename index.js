@@ -14,6 +14,10 @@ const GameBoard = (function () {
   ];
   let _gameOver = false;
 
+  function getBoard() {
+    return _board;
+  }
+
   const isGameOver = function () {
     return _gameOver;
   };
@@ -94,15 +98,15 @@ const GameBoard = (function () {
     });
   };
 
-  return { generateCells, resetBoard, markCell, isGameOver };
-})();
+  return { generateCells, resetBoard, markCell, isGameOver, getBoard };
+})(); //end of GameBoard module////////////////////////////////
 
 function handleCellClick(event) {
   const cellIndex = event.target.dataset.index;
   console.log(`Cell ${cellIndex} has been clicked`);
   DisplayController.makeMove(cellIndex);
   //GameBoard.markCell(cellIndex, "X");
-}
+} //TODO: move to playerFF maybe
 
 const PlayerFF = (playerMark, playerIdentity) => {
   const mark = playerMark;
@@ -124,7 +128,7 @@ const PlayerFF = (playerMark, playerIdentity) => {
     //active = false;
   };
   return { makeMove };
-};
+}; //end of PlayerFF factory function/////////////////////////
 
 const DisplayController = (function () {
   let status = "New Game";
@@ -157,6 +161,21 @@ const DisplayController = (function () {
     console.log("next turn: " + turn);
   };
   return { makeMove, setStatus };
+})(); //end of DisplayController module////////////////////////////////
+
+const AI = (function () {
+  function makeMove(board) {
+    let emptyCells = [];
+    for (let index = 0; index < board.length; index++) {
+      if (board[index] === "") {
+        emptyCells.push(index);
+      }
+    }
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const randomMove = emptyCells[randomIndex];
+    DisplayController.makeMove(randomMove);
+  }
+  return { makeMove };
 })();
 
 GameBoard.generateCells();
