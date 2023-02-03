@@ -164,7 +164,8 @@ const DisplayController = (function () {
 })(); //end of DisplayController module////////////////////////////////
 
 const AI = (function () {
-  function makeMove(board) {
+  function makeMove() {
+    const board = GameBoard.getBoard();
     let emptyCells = [];
     for (let index = 0; index < board.length; index++) {
       if (board[index] === "") {
