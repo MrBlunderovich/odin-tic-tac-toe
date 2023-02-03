@@ -22,7 +22,7 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 1rem 1fr 1fr;
+  grid-template-rows: 1fr 1rem 2fr 2fr;
 }
 .header {
   font-size: 4rem;
@@ -42,12 +42,14 @@ body {
   justify-self: center;
   width: 90vmin;
   height: 10vmin;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 2rem;
 }
 .display > div {
   border: 5px solid white;
+  padding: 0.5rem;
 }
 .container {
   grid-row: 3 / span 2;

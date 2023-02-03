@@ -27,10 +27,15 @@ const GameBoard = (function () {
       ) {
         _gameOver = _board[line[0]];
         console.log(_gameOver + " win on line: " + line);
+        DisplayController.setStatus("Player " + _gameOver + " is victorious!");
         return;
       }
-
-      //TODO: check dor a draw
+    }
+    if (_board.every((cell) => cell !== "")) {
+      _gameOver = "draw";
+      console.log("We have a draw!");
+      DisplayController.setStatus("We have a draw!");
+      return;
     }
   };
 
@@ -92,39 +97,68 @@ const GameBoard = (function () {
   return { generateCells, resetBoard, markCell, isGameOver };
 })();
 
-GameBoard.generateCells();
-
 function handleCellClick(event) {
   const cellIndex = event.target.dataset.index;
   console.log(`Cell ${cellIndex} has been clicked`);
-  GameBoard.markCell(cellIndex, "X");
+  DisplayController.makeMove(cellIndex);
+  //GameBoard.markCell(cellIndex, "X");
 }
 
 const PlayerFF = (playerMark, playerIdentity) => {
   const mark = playerMark;
   const identity = playerIdentity;
-  let active = false;
+  //let active = false;
   let hasWon = false;
-  const isActive = () => active;
+  /* const isActive = () => active;
   const activate = () => {
     console.log("activating");
     active = true;
     console.log("should be active: " + isActive());
-  };
-  const makeMove = function (index) {
-    if (active === false) {
+  }; */
+  const makeMove = function (cellIndex) {
+    /* if (active === false) {
       console.log(`not player "${mark}" move`);
       return;
-    }
-    GameBoard.markCell(index, mark);
-    active = false;
+    } */
+    GameBoard.markCell(cellIndex, mark);
+    //active = false;
   };
-  return { makeMove, activate, isActive };
+  return { makeMove };
 };
 
-const playerX = PlayerFF("X", "human");
-const playerY = PlayerFF("O", "human");
-
 const DisplayController = (function () {
-  return {};
+  let status = "New Game";
+  let turn = "X";
+  const display = document.querySelector(".display__central");
+  const refreshDisplay = () => {
+    display.textContent = status;
+  };
+  const setStatus = (newStatus) => {
+    status = newStatus;
+    refreshDisplay();
+  };
+  /* const switchTurn = () => {
+    if (turn === "X") {
+      turn = "O";
+    } else if (turn === "O") {
+      turn = "X";
+    } else {
+      console.log("unexpected turn");
+    }
+  }; */
+  const makeMove = (cellIndex) => {
+    if (turn === "X") {
+      playerX.makeMove(cellIndex);
+      turn = "O";
+    } else if (turn === "O") {
+      playerO.makeMove(cellIndex);
+      turn = "X";
+    }
+    console.log("next turn: " + turn);
+  };
+  return { makeMove, setStatus };
 })();
+
+GameBoard.generateCells();
+const playerX = PlayerFF("X", "human");
+const playerO = PlayerFF("O", "human");
