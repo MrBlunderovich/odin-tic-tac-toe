@@ -18,11 +18,11 @@ const Gameboard = (function () {
     return _board;
   }
 
-  const isGameOver = function () {
+  function isGameOver() {
     return _gameOver;
-  };
+  }
 
-  const _checkForWin = function () {
+  function _checkForWin() {
     for (let line of _lines) {
       if (
         _board[line[0]] !== "" &&
@@ -41,9 +41,9 @@ const Gameboard = (function () {
       DisplayController.setStatus("We have a draw!");
       return;
     }
-  };
+  }
 
-  const markCell = function (index, mark) {
+  function markCell(index, mark) {
     if (_gameOver) {
       console.log("game is over");
       return;
@@ -60,17 +60,17 @@ const Gameboard = (function () {
     _board[index] = mark;
     _fillCells();
     _checkForWin();
-  };
+  }
 
-  const resetBoard = function () {
+  function resetBoard() {
     for (let i = 0; i < _board.length; i++) {
       _board[i] = "";
     }
     _gameOver = false;
     _fillCells();
-  };
+  }
 
-  const generateCells = function () {
+  function generateCells() {
     const boardCells = _board
       .map((item, index) => {
         return `<div data-index="${index}" class="cell">${item}</div>`;
@@ -81,26 +81,24 @@ const Gameboard = (function () {
     cellsCollection.forEach((cell) => {
       cell.addEventListener("click", DisplayController.handleCellClick);
     });
-  };
+  }
 
-  const _fillCells = function () {
+  function _fillCells() {
     const cellsCollection = document.querySelectorAll(".cell");
     cellsCollection.forEach((cell) => {
       const cellIndex = +cell.dataset.index;
       cell.textContent = _board[cellIndex];
     });
-  };
+  }
 
   return { generateCells, resetBoard, markCell, isGameOver, getBoard };
 })(); //end of Gameboard module////////////////////////////////
 
-const PlayerFF = (playerMark, playerIdentity) => {
+function PlayerFF(playerMark, playerIdentity) {
   const mark = playerMark;
   const identity = playerIdentity;
   let active = false;
-  /* const makeMove = function (cellIndex) {
-    Gameboard.markCell(cellIndex, mark);
-  }; */
+
   function activate() {
     active = true;
   }
@@ -121,12 +119,8 @@ const PlayerFF = (playerMark, playerIdentity) => {
     }
   }
 
-  function report() {
-    console.log({ mark, identity, active });
-  }
-
-  return { considerMove, makeMove, activate, report };
-}; //end of PlayerFF factory function/////////////////////////
+  return { considerMove, makeMove, activate };
+} //end of PlayerFF factory function/////////////////////////
 
 const AI = (function () {
   function makeMove(mark) {
@@ -157,24 +151,25 @@ const DisplayController = (function () {
   const display = document.querySelector(".display__central");
   let status = "";
   let turn = "";
-  const refreshDisplay = () => {
-    display.textContent = status;
-  };
 
-  function restartGame() {
+  function _refreshDisplay() {
+    display.textContent = status;
+  }
+
+  function _restartGame() {
     Gameboard.resetBoard();
     status = "New Game";
     turn = "X";
-    callForMove();
+    _callForMove();
   }
 
-  const spaceReset = function (event) {
+  function _spaceReset(event) {
     if (event.keyCode === 32 || event.type === "click") {
-      restartGame();
+      _restartGame();
     }
-  };
+  }
 
-  function callForMove() {
+  function _callForMove() {
     if (Gameboard.isGameOver()) {
       playerODisplay.classList.remove("active-player");
       playerXDisplay.classList.remove("active-player");
@@ -187,21 +182,18 @@ const DisplayController = (function () {
       playerXDisplay.classList.add("active-player");
       display.textContent = "<< It's player X's turn";
       playerX.considerMove();
-      //turn = "O";
     } else if (turn === "O") {
       playerODisplay.classList.add("active-player");
       playerXDisplay.classList.remove("active-player");
       display.textContent = "It's player O's turn >>";
       playerO.considerMove();
-      //turn = "X";
     }
-    //console.log("Controller says next turn: " + turn);
   }
 
-  const setStatus = (newStatus) => {
+  function setStatus(newStatus) {
     status = newStatus;
-    refreshDisplay();
-  };
+    _refreshDisplay();
+  }
 
   function makeMove(cellIndex, mark) {
     console.log("controller calls gameboard.markcell()");
@@ -212,7 +204,7 @@ const DisplayController = (function () {
       turn = "X";
     }
     console.log("Controller says next turn: " + turn);
-    callForMove();
+    _callForMove();
   }
 
   function handleCellClick(event) {
@@ -227,9 +219,7 @@ const DisplayController = (function () {
     }
   }
 
-  function playerToggle(event) {
-    //console.log(event.target);
-    //console.log(event.target.parentElement.querySelectorAll(".switch"));
+  function _playerToggle(event) {
     const switchesPair = event.target.parentElement.querySelectorAll(".switch");
     switchesPair.forEach((item) => {
       item.classList.toggle("selected");
@@ -253,17 +243,14 @@ const DisplayController = (function () {
       default:
         break;
     }
-    playerX.report();
-    playerO.report();
   }
 
-  document.addEventListener("keydown", spaceReset);
-  document.querySelector(".footer").addEventListener("click", spaceReset);
+  document.addEventListener("keydown", _spaceReset);
+  document.querySelector(".footer").addEventListener("click", _spaceReset);
   const switches = document.querySelectorAll(".display__player>.switch");
   switches.forEach((item) => {
-    item.addEventListener("click", playerToggle);
+    item.addEventListener("click", _playerToggle);
   });
-  //callForMove();
 
   return { makeMove, setStatus, handleCellClick };
 })(); //end of DisplayController module////////////////////////////////
