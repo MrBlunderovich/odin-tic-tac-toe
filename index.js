@@ -209,7 +209,12 @@ const DisplayController = (function () {
 
   function handleCellClick(event) {
     const cellIndex = event.target.dataset.index;
+    const board = Gameboard.getBoard();
     console.log(`Cell ${cellIndex} has been clicked`);
+    if (board[cellIndex] !== "") {
+      console.log(`Cell ${cellIndex} is unavailable`);
+      return;
+    }
     if (turn === "X") {
       playerX.makeMove(cellIndex);
       console.log("handleClick called playerX.makeMove");
