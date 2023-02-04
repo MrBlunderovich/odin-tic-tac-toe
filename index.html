@@ -12,16 +12,18 @@
     <div class="grid-container">
       <h1 class="header">TIC TAC TOE</h1>
       <div class="display">
-        <div class="display__player">
-          player X
-          <div class="x human selected"></div>
-          <div class="x AI"></div>
+        <div class="display__player X">
+          <span class="display__player-header">player X</span>
+          <div id="X_Human" class="switch human selected">Human</div>
+          <div id="X_AI" class="switch AI">AI</div>
         </div>
-        <div class="display__central">display</div>
-        <div class="display__player">
-          player O
-          <div class="o human selected"></div>
-          <div class="o AI"></div>
+        <div class="display__central">
+          Hit space to reset the board and start a new game.
+        </div>
+        <div class="display__player O">
+          <span class="display__player-header">player O</span>
+          <div id="O_Human" class="switch human selected">Human</div>
+          <div id="O_AI" class="switch AI">AI</div>
         </div>
       </div>
       <div class="container">

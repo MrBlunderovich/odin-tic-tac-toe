@@ -50,6 +50,34 @@ body {
 .display > div {
   border: 5px solid white;
   padding: 0.5rem;
+  font-size: 0.8rem;
+}
+.active-player {
+  background-color: #fff;
+  color: #ff7bba;
+}
+.display__player {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.display__player-header {
+  grid-column: span 2;
+}
+.switch {
+  border: 2px solid white;
+  justify-self: stretch;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.switch.selected {
+  background-color: #fff;
+  color: #ff7bba;
+}
+.switch:not(.selected) {
+  color: #fff;
 }
 .container {
   grid-row: 3 / span 2;
